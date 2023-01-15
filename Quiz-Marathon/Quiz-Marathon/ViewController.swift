@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     
     let progressView = UIProgressView()
     
+    var questionNumber = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         style()
@@ -29,7 +31,7 @@ extension ViewController {
         // QuestionLabel
         questionLabel.translatesAutoresizingMaskIntoConstraints = false
         questionLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
-        questionLabel.text = "Question Text"
+        questionLabel.text = quiz[questionNumber].text
         questionLabel.numberOfLines = 0
         questionLabel.textAlignment = .center
         
@@ -45,6 +47,7 @@ extension ViewController {
         trueButton.setTitle("True", for: [])
         trueButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         trueButton.layer.cornerRadius = 8
+        trueButton.addTarget(self, action: #selector(trueButtonPressed), for: .primaryActionTriggered)
         
         // FalseButton
         falseButton.translatesAutoresizingMaskIntoConstraints = false
@@ -53,12 +56,13 @@ extension ViewController {
         falseButton.setTitle("False", for: [])
         falseButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         falseButton.layer.cornerRadius = 8
+        falseButton.addTarget(self, action: #selector(falseButtonPressed), for: .primaryActionTriggered)
         
         // ProgressView
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressViewStyle = .bar
         progressView.tintColor = .darkGray
-        progressView.progress = 0.4
+        progressView.progress = Float(questionNumber + 1) / Float(quiz.count)
     }
     
     func layout() {
@@ -86,8 +90,8 @@ extension ViewController {
         
         // Buttons
         NSLayoutConstraint.activate([
-            trueButton.heightAnchor.constraint(equalToConstant: 50),
-            falseButton.heightAnchor.constraint(equalToConstant: 50),
+            trueButton.heightAnchor.constraint(equalToConstant: 55),
+            falseButton.heightAnchor.constraint(equalToConstant: 55),
         ])
         
         // ProgressView
@@ -95,9 +99,8 @@ extension ViewController {
             progressView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             progressView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: progressView.trailingAnchor, multiplier: 4),
+            progressView.heightAnchor.constraint(equalToConstant: 6),
         ])
     }
 }
-
-
 
