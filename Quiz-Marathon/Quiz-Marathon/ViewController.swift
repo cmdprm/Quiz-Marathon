@@ -32,7 +32,6 @@ extension ViewController {
         questionLabel.text = "Question Text"
         questionLabel.numberOfLines = 0
         questionLabel.textAlignment = .center
-        questionLabel.backgroundColor = .red
         
         // ButtonsStackView
         buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,6 +53,12 @@ extension ViewController {
         falseButton.setTitle("False", for: [])
         falseButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         falseButton.layer.cornerRadius = 8
+        
+        // ProgressView
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progressViewStyle = .bar
+        progressView.tintColor = .darkGray
+        progressView.progress = 0.4
     }
     
     func layout() {
@@ -62,6 +67,7 @@ extension ViewController {
         
         view.addSubview(questionLabel)
         view.addSubview(buttonsStackView)
+        view.addSubview(progressView)
         
         // QuestionLabel
         NSLayoutConstraint.activate([
@@ -73,7 +79,7 @@ extension ViewController {
         
         // ButtonsStackView
         NSLayoutConstraint.activate([
-            buttonsStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            buttonsStackView.bottomAnchor.constraint(equalTo: progressView.topAnchor, constant: -20),
             buttonsStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: buttonsStackView.trailingAnchor, multiplier: 4),
         ])
@@ -83,6 +89,15 @@ extension ViewController {
             trueButton.heightAnchor.constraint(equalToConstant: 50),
             falseButton.heightAnchor.constraint(equalToConstant: 50),
         ])
+        
+        // ProgressView
+        NSLayoutConstraint.activate([
+            progressView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            progressView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 4),
+            view.trailingAnchor.constraint(equalToSystemSpacingAfter: progressView.trailingAnchor, multiplier: 4),
+        ])
     }
 }
+
+
 
